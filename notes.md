@@ -65,6 +65,7 @@ let mut remaining = 10;
             if remaining == 9 {
                 break;
             }
+
             if count == 2 {
                 break 'counting_up;
             }
@@ -77,3 +78,12 @@ let mut remaining = 10;
 
 }
 The outer loop has the label 'counting_up, and it will count up from 0 to 2. The inner loop without a label counts down from 10 to 9. The first break that doesn’t specify a label will exit the inner loop only. The break 'counting_up; statement will exit the outer loop.
+
+---
+
+Ownership is primarily a discipline of heap management:
+
+- All heap data must be owned by exactly one variable.
+- Rust deallocates heap data once its owner goes out of scope.
+- Ownership can be transferred by moves, which happen on assignments and function calls.
+- Heap data can only be accessed through its current owner, not a previous owner.
