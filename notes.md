@@ -96,3 +96,9 @@ Pointers are a powerful and dangerous feature because they enable aliasing. Alia
 - By deallocating the aliased data, leaving the other variable to point to deallocated memory.
 - By mutating the aliased data, invalidating runtime properties expected by the other variable.
 - By concurrently mutating the aliased data, causing a data race with nondeterministic behavior for the other variable.
+
+Pointer Safety Principle: data should never be aliased and mutated at the same time.
+
+Data can be aliased. Data can be mutated. But data cannot be both aliased and mutated. For example, Rust enforces this principle for boxes (owned pointers) by disallowing aliasing. Assigning a box from one variable to another will move ownership, invalidating the previous variable. Owned data can only be accessed through the owner — no aliases.
+
+However, because references are non-owning pointers, they need different rules than boxes to ensure the Pointer Safety Principle. By design, references are meant to temporarily create aliases. In the rest of this section, we will explain the basics of how Rust ensures the safety of references through the borrow checker.
