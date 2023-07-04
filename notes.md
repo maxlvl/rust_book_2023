@@ -87,3 +87,12 @@ Ownership is primarily a discipline of heap management:
 - Rust deallocates heap data once its owner goes out of scope.
 - Ownership can be transferred by moves, which happen on assignments and function calls.
 - Heap data can only be accessed through its current owner, not a previous owner.
+
+---
+
+Risk about pointers:
+Pointers are a powerful and dangerous feature because they enable aliasing. Aliasing is accessing the same data through different variables. On its own, aliasing is harmless. But combined with mutation, we have a recipe for disaster. One variable can "pull the rug out" from another variable in many ways, for example:
+
+- By deallocating the aliased data, leaving the other variable to point to deallocated memory.
+- By mutating the aliased data, invalidating runtime properties expected by the other variable.
+- By concurrently mutating the aliased data, causing a data race with nondeterministic behavior for the other variable.
